@@ -1,0 +1,60 @@
+%head
+  %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+
+%body
+  .flash-box
+  .wrapper
+    .chat-side
+      .side-header
+        .side-header__box
+          %p.side-header__box__user-name つばさ
+          %ul.side-header__box__menu
+            %li.side-header__box__menu__new-group
+              %a{:href => ""}
+                %i.fa.fa-edit
+            %li.side-header__box__menu__edit-user
+              %a{:href => ""}
+                %i.fa.fa-cog
+      .groups
+        %a{:href => ""}
+          .group
+            %p.group__group-name TECH::EXPERTチームM
+            %p.group__latest-message まだメッセージがありません
+        %a{:href => ""}
+          .group
+            %p.group__group-name TECH::EXPERTチームM
+            %p.group__latest-message まだメッセージがありません
+
+
+    .chat-main
+      .main-header
+        .main-header__left-box
+          %h2.main-header__left-box__current-group
+            TECH::EXPERT卒業生
+          %ul.main-header__left-box__member-list
+            Member：
+            %li.main-header__left-box__member-list__member つばさ
+
+        %a{:href => ""}
+          .main-header__edit-btn Edit
+      .messages
+        .message
+          .message__upper-info
+            %p.message__upper-info__talker つばさ
+            %p.message__upper-info__date 2019/09/22(Sun) 17:16:11
+          %p.message__text 今日も頑張ろう！
+        .message
+          .message__upper-info
+            %p.message__upper-info__talker つばさ
+            %p.message__upper-info__date 2019/09/22(Sun) 17:16:11
+          %p.message__text 今日も頑張ろう！
+
+      .form
+        %form#new_message.new_message
+          .input-box
+            %input#message_content.input-box__text{name: "message[content]", placeholder: "type a message", type: "text"}/
+            %label.input-box__image{for: "message_image"}
+              %i.fa.fa-image
+              %input#message_image.input-box__image__file{name:  "message[image]", type: "file"}/
+
+          %input.submit-btn{name: "commit", type: "submit", value: "Send"}/
