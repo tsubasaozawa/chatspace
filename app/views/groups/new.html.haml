@@ -1,0 +1,4 @@
+.chat-group-form
+  %h1 新規チャットグループ
+  = form_for @group do |f|
+    = render partial: 'devise/shared/group', locals: {group: @group,f: f}
