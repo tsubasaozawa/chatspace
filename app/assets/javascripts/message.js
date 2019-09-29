@@ -1,5 +1,7 @@
 $(function(){
   function buildHTML(post){
+    var content = post.content ? `${ post.content }` : "";
+    var img = post.image ? `<img class="lower-message__image" src="${post.image}" alt="Image">` : "";
     var html =`<div class="message">
                 <div class="message__upper-info">
                   <p class="message__upper-info__talker">
@@ -11,8 +13,9 @@ $(function(){
                 </div>
                   <p class="message__text">
                   </p><p class="lower-message__content">
-                    ${post.content}
+                    ${content}
                   </p>
+                    ${img}
               </div>`
     return html;
   }
