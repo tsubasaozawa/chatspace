@@ -1,8 +1,7 @@
 $(function(){
-  // $(document).on('turbolinks:load', function(){
 
     var search_list = $("#user-search-result");
-    // var member_list = $("#member-append");
+    var selected_list = $("#selected-append");
 
     function appendUser(user){
         var html =
@@ -20,15 +19,24 @@ $(function(){
                     </div>`;
                     search_list.append(html);
     }
-  // });
+
+    function appendList(selectNo,selectName) {
+      var html = `<div class='chat-group-user js-chat-user'>
+                    <input name='group[user_ids][]' type='hidden' value='${ selectNo }'>
+                    <p class='chat-group-user__name'>${ selectName }</p>
+                    <div class='user-search-remove chat-group-user__btn chat-group-user__btn--remove' data-user-id=${selectNo} data-user-name=${selectName}>削除</div>
+                  </div>`
+                  selected_list.append(html);
+    }
 
   $("#user-search-field").on("keyup",function(){
     var input = $("#user-search-field").val();
+    var group_id = $('.chat__group_id').val();
 
     $.ajax({
       type: 'GET',
       url: '/users',
-      data: { keyword: input },
+      data: { keyword: input ,groupId: group_id },
       dataType: 'json'
     })
     .done(function(users){
@@ -39,7 +47,8 @@ $(function(){
       else if (users.length !== 0){
           $('#user-search-result').empty();
           users.forEach(function(user){
-              appendUser(user)
+            appendUser(user);
+            console.log(user);
           });
       }
 
@@ -52,5 +61,20 @@ $(function(){
     .fail(function() {
       alert('ユーザー検索に失敗しました');
     })
+    .always(function(user){
+      $('#user-search-result').prop('disabled', false);　
+    })
+  });
+  $("#user-search-result").on('click','.chat-group-user__btn--add', function() {
+    var selectNo = $(this).data('user-id');
+    var selectName = $(this).data('user-name');
+    appendList(selectNo,selectName);
+    $(this).parent().remove();
+  });
+  $("#selected-append").on('click','.chat-group-user__btn--remove', function() {
+    $(this).parent().remove();
+  });
+  $(".chat-group-user").on('click','.chat-group-user__btn--remove', function() {
+    $(this).parent().remove();
   });
 });

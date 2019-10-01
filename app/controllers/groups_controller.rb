@@ -7,6 +7,7 @@ class GroupsController < ApplicationController
   def new
     @group = Group.new
     @group.users << current_user
+    @members = @group.users
   end
 
   def create
@@ -19,6 +20,8 @@ class GroupsController < ApplicationController
   end
 
   def edit
+    @group = Group.find(params[:id])
+    @members = @group.users
   end
   # groupsコントローラのeditアクションにおいて行いたい処理は、
   # 「form_forで使用するためのインスタンス変数@groupを定義すること」のみです。
