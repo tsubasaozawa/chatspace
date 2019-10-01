@@ -48,7 +48,6 @@ $(function(){
           $('#user-search-result').empty();
           users.forEach(function(user){
             appendUser(user);
-            console.log(user);
           });
       }
 
