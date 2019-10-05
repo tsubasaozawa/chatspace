@@ -1,22 +1,23 @@
 $(function(){
-  function buildHTML(post){
-    var content = post.content ? `${ post.content }` : "";
-    var img = post.image ? `<img class="lower-message__image" src="${post.image}" alt="Image">` : "";
-    var html =`<div class="message">
+  function buildHTML(message){
+    var content = message.content ? `${message.content}` : "";
+    var img = message.image ? `<img class="lower-message__image" src= "${message.image}" alt="Image">` : "";
+    var html =`<div class="message" data-id="${message.id}">
                 <div class="message__upper-info">
                   <p class="message__upper-info__talker">
-                    ${post.name}
+                    ${message.name}
                   </p>
                   <p class="message__upper-info__date">
-                    ${post.created_at}
+                    ${message.created_at}
                   </p>
                 </div>
                   <p class="message__text">
-                  </p><p class="lower-message__content">
+                  </p>
+                  <p class="lower-message__content">
                     ${content}
                   </p>
                     ${img}
-              </div>`
+                </div>`
     return html;
   }
 
@@ -45,4 +46,29 @@ $(function(){
       $('.submit-btn').prop('disabled', false);　
     })
   })
+
+  var reloadMessages = function() {
+    if (window.location.href.match(/\/groups\/\d+\/messages/)){
+    last_message_id = $('.message:last').data('message-id');
+    $.ajax({
+      url: 'api/messages',
+      type: 'get',
+      dataType: 'json',
+      data: {id: last_message_id}
+    })
+    .done(function(messages) {
+      var insertHTML = '';
+      messages.forEach(function(message){
+        insertHTML = buildHTML(message);
+        $('.messages').append(insertHTML);
+        $('.messages').animate({scrollTop: $('.messages')[0].scrollHeight}, 'fast');
+      })
+    })
+    .fail(function() {
+      alert("自動更新に失敗しました")
+    });
+    };
+  };
+setInterval(reloadMessages, 5000);
 });
+
