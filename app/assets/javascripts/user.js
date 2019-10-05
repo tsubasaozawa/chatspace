@@ -40,6 +40,7 @@ $(function(){
       dataType: 'json'
     })
     .done(function(users){
+      console.log(users);
       if (input.length === 0) {
           $('#user-search-result').empty();
         }
@@ -64,6 +65,7 @@ $(function(){
       $('#user-search-result').prop('disabled', false);　
     })
   });
+
   $("#user-search-result").on('click','.chat-group-user__btn--add', function() {
     var selectNo = $(this).data('user-id');
     var selectName = $(this).data('user-name');
