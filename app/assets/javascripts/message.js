@@ -39,7 +39,7 @@ $(function(){
       $('.messages').animate({scrollTop: $('.messages')[0].scrollHeight});
     })
     .fail(function(post){
-      alert("エラー");
+      alert("送信エラー");
     })
     .always(function(post){
       $('.submit-btn').prop('disabled', false);　
