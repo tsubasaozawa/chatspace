@@ -24,7 +24,6 @@ $(function(){
     e.preventDefault();
     var formData = new FormData(this);
     var url = $(this).attr('action');
-    debugger;
     $.ajax({
       url: url,
       type: "post",
